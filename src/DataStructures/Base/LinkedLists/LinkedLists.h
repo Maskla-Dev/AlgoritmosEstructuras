@@ -47,4 +47,10 @@ void removePrev(IntNode *node);
 
 void clearList(IntLinkedList *list);
 
+char* intLinkedListToString(IntLinkedList* linked_list, char* separator);
+
+char* intNodeToString(IntNode* node);
+
+char* concat(char* string1, char* string2);
+
 #endif //ALGORITMOSESTRUCTURAS_LINKEDLISTS_H

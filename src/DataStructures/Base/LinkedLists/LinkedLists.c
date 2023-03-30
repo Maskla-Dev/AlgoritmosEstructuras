@@ -3,6 +3,10 @@
 //
 #include "LinkedLists.h"
 #include <stdlib.h>
+#include "CharLinkedList.h"
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
 
 IntLinkedList *createIntLinkedList() {
     IntLinkedList *list = malloc(sizeof(IntLinkedList));
@@ -136,4 +140,35 @@ void clearList(IntLinkedList *list) {
     list->head = NULL;
     list->tail = NULL;
     list->current = NULL;
+}
+
+char *intLinkedListToString(IntLinkedList *linked_list, char *separator) {
+    char *string = malloc(sizeof(char));
+    string[0] = '\0';
+    char *temp;
+    goHead(linked_list);
+    while (linked_list->current != NULL) {
+        temp = intNodeToString(linked_list->current);
+        string = concat(string, temp);
+        string = concat(string, separator);
+        free(temp);
+        goNext(linked_list);
+    }
+    return string;
+}
+
+char *intNodeToString(IntNode *node) {
+    char *temp;
+    size_t length = (size_t) log10(node->data) + 2;
+    temp = calloc(length, sizeof(char));
+    sprintf(temp, "%d", node->data);
+    return temp;
+}
+
+
+char *concat(char *s1, char *s2) {
+    char *result = malloc(strlen(s1) + strlen(s2) + 1);
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
 }

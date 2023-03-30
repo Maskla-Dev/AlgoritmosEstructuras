@@ -7,7 +7,22 @@
 
 #include "Arrays.h"
 
-int module(int key, int size);
+typedef enum HashFunction {
+    MODULE,
+    MIDDLE_SQUARE,
+    FOLDING,
+} HashFunction;
+
+typedef enum CollisionSolve {
+    LINEAR_PROBING,
+    QUADRATIC_PROBING,
+    SEPARATE_CHAINING,
+    REHASHING
+} CollisionSolve;
+
+unsigned int getPosition(int key, int table_size, int middle_size,HashFunction hash_function);
+
+unsigned int module(int key, int size);
 
 unsigned int square(int key);
 

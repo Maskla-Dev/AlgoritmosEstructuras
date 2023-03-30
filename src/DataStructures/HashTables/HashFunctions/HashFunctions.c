@@ -3,9 +3,21 @@
 //
 #include "HashFunctions.h"
 #include <math.h>
-#include <limits.h>
+#include <stdlib.h>
 
-int module(int key, int size) {
+unsigned int getPosition(int key, int table_size, int middle_size, HashFunction hash_function) {
+    switch (hash_function) {
+        default:
+        case MODULE:
+            return module(key, middle_size);
+        case MIDDLE_SQUARE:
+            return module(square(key), table_size);
+        case FOLDING:
+            return module((int) foldSum(key, middle_size), table_size);
+    }
+}
+
+unsigned int module(int key, int size) {
     return abs(key) % size;
 }
 
@@ -22,6 +34,7 @@ unsigned int foldSum(int key, unsigned short middle_size) {
     for (int i = 0; i < array->size; ++i) {
         sum += array->array[i];
     }
+    releaseIntArray(array);
     return sum;
 }
 
