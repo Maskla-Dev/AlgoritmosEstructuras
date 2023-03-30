@@ -82,11 +82,11 @@ char *intLinkedListArrayToString(IntLinkedListArray *array, char *array_separato
     char *string = (char *) malloc(sizeof(char));
     string[0] = '\0';
     char *temp, *label;
+    label = (char *) calloc(30, sizeof(char));
     for (int i = 0; i < array->size; ++i) {
-        label = (char *) calloc(30, sizeof(char));
-        sprintf(label, "List %d\n: ", i);
+        sprintf(label, "List %d:\n", i);
+        string = concat(string, label);
         temp = intLinkedListToString(&array->data[i], list_separator);
-        temp = concat(string, label);
         string = concat(string, temp);
         string = concat(string, array_separator);
         free(temp);

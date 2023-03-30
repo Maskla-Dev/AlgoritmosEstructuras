@@ -19,8 +19,8 @@ void insertValueIntHashTable(IntHashTable *hash_table, int value, int middle_siz
     node_to_insert->data = value;
     if (hash_table->array->data[position].current == NULL) {
         hash_table->array->data[position].head = node_to_insert;
-        hash_table->array->data[position].tail = hash_table->array->data[position].head;
-        hash_table->array->data[position].current = hash_table->array->data[position].current;
+        hash_table->array->data[position].tail = node_to_insert;
+        hash_table->array->data[position].current = node_to_insert;
     } else {
         switch (hash_table->collisionFunction) {
             default:
@@ -33,8 +33,9 @@ void insertValueIntHashTable(IntHashTable *hash_table, int value, int middle_siz
 }
 
 IntHashTable *
-sortIntArrayByHash(IntArray *array, int *fixed_size, HashFunction hash_function_type, CollisionSolve collision_function) {
-    IntHashTable *hash_table = createIntHashTable(array->size, fixed_size == NULL ? array->size : *fixed_size,
+sortIntArrayByHash(IntArray *array, int *fixed_size, HashFunction hash_function_type,
+                   CollisionSolve collision_function) {
+    IntHashTable *hash_table = createIntHashTable(array->size, hash_function_type,
                                                   collision_function);
     for (int i = 0; i < array->size; ++i) {
         insertValueIntHashTable(hash_table, array->array[i], fixed_size[i]);

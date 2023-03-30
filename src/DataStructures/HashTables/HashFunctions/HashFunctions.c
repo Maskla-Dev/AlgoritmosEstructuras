@@ -9,7 +9,7 @@ unsigned int getPosition(int key, int table_size, int middle_size, HashFunction 
     switch (hash_function) {
         default:
         case MODULE:
-            return module(key, middle_size);
+            return module(key, table_size);
         case MIDDLE_SQUARE:
             return module(square(key), table_size);
         case FOLDING:

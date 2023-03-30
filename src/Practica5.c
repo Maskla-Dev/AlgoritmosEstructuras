@@ -8,12 +8,12 @@
 
 int main() {
     IntArray *array = createIntArray(10);
-    randomFillIntArray(array, 0, 100);
+    randomFillIntArray(array, 1000, 2200);
     char *string = intArrayToString(array, "\t");
     int size = 5;
     printf("%s\n", string);
     free(string);
-    IntHashTable *table = sortIntArrayByHash(array, &size, MODULE, LINEAR_PROBING);
+    IntHashTable *table = sortIntArrayByHash(array, &size, MIDDLE_SQUARE, LINEAR_PROBING);
     string = intLinkedListArrayToString(table->array, "\n", "\t");
     printf("%s\n", string);
     free(string);
