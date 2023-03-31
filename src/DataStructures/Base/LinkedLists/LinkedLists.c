@@ -1,5 +1,5 @@
 //
-// Created by maskla on 26/03/23.
+// Created by Montoya Morales Luis Antonio, Trejo Hernandez Brandon on 26/03/23.
 //
 #include "LinkedLists.h"
 #include <stdlib.h>

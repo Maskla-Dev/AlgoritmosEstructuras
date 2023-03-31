@@ -42,3 +42,24 @@ sortIntArrayByHash(IntArray *array, int *fixed_size, HashFunction hash_function_
     }
     return hash_table;
 }
+
+int searchValue(IntHashTable *hashTable, int value) {
+    unsigned int position = getPosition(value, hashTable->array->size, 0, hashTable->hashFunction);
+    goHead(&hashTable->array->data[position]);
+    if (hashTable->array->data[position].current == NULL) {
+        return -1;
+    } else {
+        switch (hashTable->collisionFunction) {
+            default:
+            case SEPARATE_CHAINING:
+                goHead(&hashTable->array->data[position]);
+                while (hashTable->array->data[position].current != NULL) {
+                    if (hashTable->array->data[position].current->data == value) {
+                        return position;
+                    }
+                    goNext(&hashTable->array->data[position]);
+                }
+                return -1;
+        }
+    }
+}

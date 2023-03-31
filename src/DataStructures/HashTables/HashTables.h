@@ -20,7 +20,7 @@ IntHashTable *createIntHashTable(size_t size, HashFunction hash_function_type, C
 
 void insertValueIntHashTable(IntHashTable *hash_table, int value, int middle_size);
 
-void searchValue(IntHashTable *hashTable, int value);
+int searchValue(IntHashTable *hashTable, int value);
 
 IntHashTable *sortIntArrayByHash(IntArray *array, int *fixed_size, HashFunction hash_function_type, CollisionSolve collision_function);
 
