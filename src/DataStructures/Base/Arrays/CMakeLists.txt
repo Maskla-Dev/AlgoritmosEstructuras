@@ -1,2 +1,2 @@
-add_library(Arrays OBJECT IntSortingAlgorithms.c Arrays.c Arrays.h Utils.c Utils.h IntSearchingAlgorithms.c IntSearchingAlgorithms.h)
-target_include_directories(Arrays PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(Arrays STATIC IntSortingAlgorithms.c Arrays.c Utils.c IntSearchingAlgorithms.c)
+target_include_directories(Arrays PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/Data Structures")

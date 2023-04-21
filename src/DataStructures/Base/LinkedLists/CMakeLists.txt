@@ -1,2 +1,2 @@
-add_library(LinkedLists OBJECT LinkedLists.c CharLinkedList.c CharLinkedList.h)
-target_include_directories(LinkedLists PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(LinkedLists STATIC LinkedLists.c CharLinkedList.c SimpleLinkedLists.c)
+target_include_directories(LinkedLists PUBLIC "${CMAKE_SOURCE_DIR}/include/Data Structures")
