@@ -1,18 +1,18 @@
 //
-// Created by maskla on 24/04/23.
+// Created by Montoya Morales Luis Antonio on 24/04/23.
 //
 #include "DoubleLinkedList.h"
 #include <stdlib.h>
 
-DL_IntNode *createDLNode(int value) {
-    DL_IntNode *node = (DL_IntNode *) malloc(sizeof(DL_IntNode));
+struct Node *createDLNode(int value) {
+    struct Node *node = (struct Node *) malloc(sizeof(struct Node));
     node->next = NULL;
     node->prev = NULL;
     node->value = value;
     return node;
 }
 
-void insertAtNext(DL_IntNode *node, DL_IntNode *new_node) {
+void insertAtNext(struct Node *node, struct Node *new_node) {
     if (new_node == NULL)
         return;
     new_node->next = node->next;
@@ -21,7 +21,7 @@ void insertAtNext(DL_IntNode *node, DL_IntNode *new_node) {
     node->next = new_node;
 }
 
-void insertAtPrev(DL_IntNode *node, DL_IntNode *new_node) {
+void insertAtPrev(struct Node *node, struct Node *new_node) {
     if (new_node == NULL)
         return;
     new_node->prev = node->prev;
@@ -30,24 +30,24 @@ void insertAtPrev(DL_IntNode *node, DL_IntNode *new_node) {
     node->prev = new_node;
 }
 
-void insertAtHead(DL_IntNode *node, DL_IntNode *new_node) {
+void insertAtHead(struct Node *node, struct Node *new_node) {
     if (node->prev != NULL && new_node != NULL)
         return;
     new_node->next = node;
     node->prev = new_node;
 }
 
-void insertAtTail(DL_IntNode *node, DL_IntNode *new_node) {
+void insertAtTail(struct Node *node, struct Node *new_node) {
     if (node->next != NULL && new_node != NULL)
         return;
     new_node->prev = node;
     node->next = new_node;
 }
 
-DL_IntNode *insertInList(DL_IntNode *start, int value, DirectiveToContinue shouldContinue,
-                         InsertionCaseSolver getInsertionCase) {
-    DL_IntNode *new_node = createDLNode(value);
-    DL_IntNode *current;
+struct Node *insertInList(struct Node *start, int value, DirectiveToContinue shouldContinue,
+                          InsertionCaseSolver getInsertionCase) {
+    struct Node *new_node = createDLNode(value);
+    struct Node *current;
     if (start == NULL) {
         return new_node;
     }
@@ -73,33 +73,34 @@ DL_IntNode *insertInList(DL_IntNode *start, int value, DirectiveToContinue shoul
     return start;
 }
 
-DL_IntNode *insertInEvenOddList(DL_IntNode *list, int value) {
+struct Node *insertInEvenOddList(struct Node *list, int value) {
     return insertInList(list, value, shouldMoveThroughoutEvenOddList, getInsertionCaseInEvenOddList);
 }
 
-bool shouldMoveThroughoutEvenOddList(DL_IntNode *next_node, int current_node_value, int value_to_insert) {
+bool shouldMoveThroughoutEvenOddList(struct Node *next_node, int current_node_value, int value_to_insert) {
     bool is_even_insert_value = isEven(value_to_insert);
-    bool is_to_insert_greater = value_to_insert > current_node_value;
+    bool is_to_insert_greater = !is_even_insert_value ? (current_node_value > value_to_insert) : (value_to_insert >
+                                                                                                 current_node_value);
     bool is_even_current_node_value = isEven(current_node_value);
     return (next_node != NULL) && (((is_even_current_node_value && is_even_insert_value) ||
                                     (!is_even_current_node_value && !is_even_insert_value)) && is_to_insert_greater ||
-                                   (!is_even_current_node_value && is_even_insert_value));
+                                   (is_even_current_node_value && !is_even_insert_value));
 }
 
-unsigned int getInsertionCaseInEvenOddList(DL_IntNode *current_node, int value) {
+unsigned int getInsertionCaseInEvenOddList(struct Node *current_node, int value) {
     bool to_insert_is_even = isEven(value);
     bool current_is_even = isEven(current_node->value);
-    bool to_insert_is_greater = value > current_node->value;
+    bool to_insert_is_greater = !to_insert_is_even ? current_node->value > value : value > current_node->value;
     if (current_node->prev == NULL && current_node->next == NULL) {
         if ((to_insert_is_even && current_is_even) || (!to_insert_is_even && !current_is_even)) {
             return to_insert_is_greater ? CURRENT_IS_TAIL : CURRENT_IS_HEAD;
-        } else if (!to_insert_is_even && current_is_even) {
-            return CURRENT_IS_HEAD;
         } else if (to_insert_is_even && !current_is_even) {
+            return CURRENT_IS_HEAD;
+        } else if (!to_insert_is_even && current_is_even) {
             return CURRENT_IS_TAIL;
         }
     } else {
-        if (to_insert_is_even) {
+        if (!to_insert_is_even) {
             //Already odd numbers in the list but even numbers aren't in the list
             if (current_node->next == NULL) {
                 if (to_insert_is_greater)
@@ -121,6 +122,8 @@ unsigned int getInsertionCaseInEvenOddList(DL_IntNode *current_node, int value) 
             }
                 //Already odd numbers but stops at the end of the list
             else if (current_node->next == NULL) {
+                if(to_insert_is_greater)
+                    return AT_PREV;
                 return CURRENT_IS_TAIL;
             }
                 //Already odd numbers but stops at the middle of the list
@@ -132,10 +135,10 @@ unsigned int getInsertionCaseInEvenOddList(DL_IntNode *current_node, int value) 
     }
 }
 
-DL_IntNode *removeFromDL(DL_IntNode *start, int value) {
+struct Node *removeFromDL(struct Node *start, int value) {
     if (start == NULL)
         return start;
-    DL_IntNode *current = start;
+    struct Node *current = start;
     while (current->next != NULL) {
         if (current->value == value) {
             if (current->prev == NULL) {
@@ -152,7 +155,7 @@ DL_IntNode *removeFromDL(DL_IntNode *start, int value) {
     return start;
 }
 
-DL_IntNode *modifyInEvenOdd(DL_IntNode *start, int value, int new_value) {
+struct Node *modifyInEvenOdd(struct Node *start, int value, int new_value) {
     start = removeFromDL(start, value);
     start = insertInEvenOddList(start, new_value);
     return start;

@@ -11,7 +11,7 @@ long getUserChoice(int min, int max) {
     long option;
     do {
         fprintf(stdout, "Introduzca su opción (%d-%d): ", min, max);
-        scanf_s("%s", user_input);
+        scanf("%s", user_input);
         option = strtol(user_input, NULL, 10);
     } while (option < min || option > max);
     return option;

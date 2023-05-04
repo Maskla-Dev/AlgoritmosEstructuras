@@ -1,4 +1,6 @@
 # Project exclude paths
 /cmake-build-debug/
 /build
-/*.zip
+*.zip
+*/*.zip
+*/**/*.zip

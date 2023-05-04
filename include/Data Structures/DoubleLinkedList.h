@@ -1,5 +1,5 @@
 //
-// Created by maskla on 24/04/23.
+// Created by Montoya Morales Luis Antonio on 24/04/23.
 //
 
 #ifndef ALGORITMOSESTRUCTURAS_DOUBLELINKEDLIST_H
@@ -9,11 +9,11 @@
 
 #include <stdbool.h>
 
-typedef struct DoubleLinkedNode {
+struct Node {
     int value;
-    struct DoubleLinkedNode *next;
-    struct DoubleLinkedNode *prev;
-} DL_IntNode;
+    struct Node *next;
+    struct Node *prev;
+};
 
 typedef enum {
     CURRENT_IS_HEAD,
@@ -22,32 +22,32 @@ typedef enum {
     AT_PREV
 } EvenOddListCases;
 
-typedef bool (*DirectiveToContinue)(DL_IntNode *, int, int);
+typedef bool (*DirectiveToContinue)(struct Node *, int, int);
 
-typedef unsigned int (*InsertionCaseSolver)(DL_IntNode *, int);
+typedef unsigned int (*InsertionCaseSolver)(struct Node *, int);
 
-DL_IntNode *createDLNode(int value);
+struct Node *createDLNode(int value);
 
-void insertAtNext(DL_IntNode *node, DL_IntNode *new_node);
+void insertAtNext(struct Node *node, struct Node *new_node);
 
-void insertAtPrev(DL_IntNode *node, DL_IntNode *new_node);
+void insertAtPrev(struct Node *node, struct Node *new_node);
 
-void insertAtHead(DL_IntNode *node, DL_IntNode *new_node);
+void insertAtHead(struct Node *node, struct Node *new_node);
 
-void insertAtTail(DL_IntNode *node, DL_IntNode *new_node);
+void insertAtTail(struct Node *node, struct Node *new_node);
 
-DL_IntNode *removeFromDL(DL_IntNode *start, int value);
+struct Node *removeFromDL(struct Node *start, int value);
 
-DL_IntNode *modifyInEvenOdd(DL_IntNode *start, int value, int new_value);
+struct Node *modifyInEvenOdd(struct Node *start, int value, int new_value);
 
-DL_IntNode *
-insertInList(DL_IntNode *start, int value, DirectiveToContinue shouldContinue, InsertionCaseSolver getInsertionCase);
+struct Node *
+insertInList(struct Node *start, int value, DirectiveToContinue shouldContinue, InsertionCaseSolver getInsertionCase);
 
-DL_IntNode *insertInEvenOddList(DL_IntNode *list, int value);
+struct Node *insertInEvenOddList(struct Node *list, int value);
 
-bool shouldMoveThroughoutEvenOddList(DL_IntNode *next_node, int current_node_value, int value_to_insert);
+bool shouldMoveThroughoutEvenOddList(struct Node *next_node, int current_node_value, int value_to_insert);
 
-unsigned int getInsertionCaseInEvenOddList(DL_IntNode *node, int value);
+unsigned int getInsertionCaseInEvenOddList(struct Node *node, int value);
 
 
 
