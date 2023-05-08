@@ -5,7 +5,7 @@
 #ifndef ALGORITMOSESTRUCTURAS_ARRAYS_H
 #define ALGORITMOSESTRUCTURAS_ARRAYS_H
 
-#include "../LinkedLists/LinkedLists.h"
+#include "LinkedLists.h"
 
 typedef struct {
     int *array;
